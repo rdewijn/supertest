@@ -68,12 +68,16 @@ server <- shinyServer(function(input, output, session) {
     })
     
     getResultTable = reactive({
-      kinasetest() %>%
+      id = showNotification(paste("Please wait ..."), duration = NULL, closeButton = FALSE, type = "message")
+      result =
+        kinasetest() %>%
         filter(N >= input$pss) %>%
         arrange(p) %>%
         left_join(s1(), by = c(Kinase_Name = "KR_Name")) %>%
         mutate(fdr = p.adjust(p, "fdr"))%>%
-        select(Kinase_Name, N, delta, p, fdr, Family) 
+        select(Kinase_Name, N, delta, p, fdr, Family)
+      removeNotification(id)
+      return(result)
     })
     
     output$kup = renderTable({
@@ -93,6 +97,15 @@ server <- shinyServer(function(input, output, session) {
         p = p + xlab("delta") + ylab("-log10(fdr)") + guides(color  = FALSE)
         #p = p + xlim( max(abs(result$delta)) *c(-1.1, 1,1) ) + ylim( c(0, max(-log10(result$fdr))) )
         print(p)
+    })
+    
+    observeEvent(getResultTable(), {
+      ctx = getCtx(session)
+      getResultTable() %>%
+        ungroup() %>%
+        mutate(.ri = 0:(n()-1), .ci = 0) %>%
+        ctx$addNamespace() %>%
+        ctx$save()
     })
     
   })
