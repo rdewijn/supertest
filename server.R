@@ -35,6 +35,9 @@ server <- shinyServer(function(input, output, session) {
     getValues(session)
   })
   
+  
+  
+  
   observe({
     dfin = dataIn()
     
@@ -99,18 +102,21 @@ server <- shinyServer(function(input, output, session) {
         print(p)
     })
     
-    observeEvent(getResultTable(), {
-      ctx = getCtx(session)
+    observeEvent(input$done, {
+      ctx <- context()
       getResultTable() %>%
         ungroup() %>%
         mutate(.ri = 0:(n()-1), .ci = 0) %>%
         ctx$addNamespace() %>%
         ctx$save()
     })
-    
+    context <- reactive({
+      getCtx(session)
+    })
   })
   
 })
+
 
 getValues <- function(session){
   ctx <- getCtx(session)

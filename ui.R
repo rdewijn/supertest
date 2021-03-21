@@ -14,7 +14,8 @@ ui = shinyUI
           menuItem("home", tabName = "home", icon = icon("home")),
           menuItem("results table", tabName = "results", icon = icon("th")),
           menuItem("volcano plot", tabName = "vp", icon = icon("image")),
-          menuItem("settings", tabName = "settings", icon = icon("dashboard"))
+          menuItem("settings", tabName = "settings", icon = icon("dashboard")),
+          actionLink("done", "done", icon = icon("check-circle"))
         )
       )
       ,
