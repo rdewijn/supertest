@@ -1,7 +1,7 @@
 {
-  "name": "Template Shiny Operator",
-  "description": "Template to create a Shiny operator in Tercen.",
-  "tags": ["template"],
-  "authors": ["tercen"],
-  "urls": ["https://github.com/tercen/template_shiny_operator"]
+  "name": "supertest",
+  "description": "Simple UPstream kinase EnRichment TEST",
+  "tags": ["operator"],
+  "authors": ["Rik de Wijn"],
+  "urls": ["https://github.com/rdewijn/supertest"]
 }

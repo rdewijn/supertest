@@ -6,8 +6,6 @@ library(reshape2)
 library(data.table)
 library(ggsci)
 
-
-
 ############################################
 #### This part should not be modified
 getCtx <- function(session) {
