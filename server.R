@@ -77,6 +77,7 @@ server <- shinyServer(function(input, output, session) {
         filter(N >= input$pss) %>%
         arrange(p) %>%
         left_join(s1(), by = c(Kinase_Name = "KR_Name")) %>%
+        ungroup() %>%
         mutate(fdr = p.adjust(p, "fdr"))%>%
         select(Kinase_Name, N, delta, p, fdr, Family)
       removeNotification(id)
@@ -95,18 +96,19 @@ server <- shinyServer(function(input, output, session) {
     
     output$vplot = renderPlot({
       result = getResultTable()  
-      p = ggplot(result, aes(x = delta, y = -log10(fdr), label = Kinase_Name, size = N, colour =Family ))
+      p = ggplot(result, aes(x = delta, y = -log10(p), label = Kinase_Name, size = N, colour =Family ))
         p = p + geom_text() + theme_bw()
-        p = p + xlab("delta") + ylab("-log10(fdr)") + guides(color  = FALSE)
+        p = p + xlab("delta") + ylab("-log10(p)") + guides(color  = FALSE)
         #p = p + xlim( max(abs(result$delta)) *c(-1.1, 1,1) ) + ylim( c(0, max(-log10(result$fdr))) )
         print(p)
     })
     
     observeEvent(input$done, {
       ctx <- context()
-      getResultTable() %>%
+      result = getResultTable() %>%
         ungroup() %>%
         mutate(.ri = 0:(n()-1), .ci = 0) %>%
+        select(.ri, .ci. ,p) %>%
         ctx$addNamespace() %>%
         ctx$save()
     })
