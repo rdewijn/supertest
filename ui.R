@@ -1,10 +1,11 @@
 library(shiny)
 library(shinydashboard)
+library(shinyjs)
 
 ui = shinyUI
-(
+( 
   fluidPage
-  (
+  ( 
     
     ui <- dashboardPage
     (
@@ -75,6 +76,8 @@ ui = shinyUI
         )
         
       )
-    )
+    ),
+    shinyjs::useShinyjs()
+    
   )
 )

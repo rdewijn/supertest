@@ -5,6 +5,7 @@ library(globaltest)
 library(reshape2)
 library(data.table)
 library(ggsci)
+library(pgSupertest)
 
 ############################################
 #### This part should not be modified
@@ -35,6 +36,9 @@ server <- shinyServer(function(input, output, session) {
     getValues(session)
   })
   
+  mode = reactive({
+    getMode(session)
+  })
   
   
   
@@ -108,7 +112,7 @@ server <- shinyServer(function(input, output, session) {
       result = getResultTable() %>%
         ungroup() %>%
         mutate(.ri = 0:(n()-1), .ci = 0) %>%
-        select(.ri, .ci. ,p) %>%
+        select(.ri, .ci ,p) %>%
         ctx$addNamespace() %>%
         ctx$save()
     })
@@ -138,74 +142,11 @@ getValues <- function(session){
     arrange(.ri, .ci)
 }
 
-upstreamDb = function(){
-  load("./d/180509_86312_86402_87102_UpstreamDb.RData")
-  UpstreamDatabase
+getMode = function(session){
+  # retreive url query parameters provided by tercen
+  query = parseQueryString(session$clientData$url_search)
+  return(query[["mode"]])
 }
 
-TableS1 = function(){
-  df = read.delim("./d/TableS1 Kinases in Kinome Render.txt")
-}
 
-scoreIviv = function(db, score){
-  db %>% 
-    filter(Database == "iviv") %>%
-    mutate(s = score)
-}
-
-scorePNet = function(db, ranks, scores){
-  db %>% 
-    mutate(
-      s  = case_when(
-        Kinase_Rank > ranks[2] ~ scores[3],
-        Kinase_Rank > ranks[1] ~ scores[2],
-        TRUE ~ scores[1])
-    )
-}
-
-combinedScores = function(dblist, minscore){
-  dbc = bind_rows(dblist) %>%
-    group_by(Kinase_Name, ID) %>%
-    summarise(sc = 1-prod(1-s))
-  
-  db.all = expand.grid(levels(droplevels(dbc$Kinase_Name)), levels(droplevels(dbc$ID)) )
-  colnames(db.all) = c("Kinase_Name", "ID")
-  
-  db.all %>%
-    left_join(dbc, by = c("Kinase_Name", "ID")) %>%
-    mutate(sc.final = case_when(
-      is.na(sc) ~ minscore,
-      sc < minscore ~ minscore,
-      TRUE ~ sc))
-}
-
-normalizeScores = function(db){
-  sumdf = db %>% group_by(ID) %>% summarise(sumsc = sum(sc.final))
-  db %>%
-    left_join(sumdf, by = "ID") %>%
-    group_by(ID) %>%
-    mutate(sc.nor = sc.final/sumsc)
-}
-
-gtest = function(kinase.set, X, grp){
-  bset = colnames(X) %in% kinase.set$ID
-  X = X[, bset,drop = FALSE]
-  if(dim(X)[2]>0){
-    globtest = gt(grp ~ X, directional = TRUE, standardize = TRUE)
-    p = attr(globtest, "result")[1,1]
-    delta = mean(gdelta(X, grp))
-  } else {
-    p = NaN
-    delta = NaN
-  }
-  result = data.table(p = p, N = dim(X)[2], delta = delta, gt = list(globtest))
-}
-
-gdelta = function(Xin, grp){
-  X1 = Xin[grp == levels(grp)[1],,drop = FALSE]
-  X2 = Xin[grp == levels(grp)[2],,drop= FALSE]
-  M1 =apply(X1, 2, mean)
-  M2 =apply(X2, 2, mean)
-  delta = M2 - M1
-}
 

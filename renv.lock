@@ -59,16 +59,10 @@
     },
     "BiocManager": {
       "Package": "BiocManager",
-      "Version": "1.30.4",
+      "Version": "1.30.10",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "518d22c7de7502e73c6c482bf794905b"
-    },
-    "BiocVersion": {
-      "Package": "BiocVersion",
-      "Version": "3.8.0",
-      "Source": "Bioconductor",
-      "Hash": "5b2b57b3c79f2c245c301dfd9927d330"
+      "Hash": "db75371846625725e221470b310da1d5"
     },
     "DBI": {
       "Package": "DBI",
@@ -216,10 +210,10 @@
     },
     "callr": {
       "Package": "callr",
-      "Version": "3.2.0",
+      "Version": "3.5.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "e968f494679838e2a12dbc15aa94c9ee"
+      "Hash": "b7d7f1e926dfcd57c74ce93f5c048e80"
     },
     "cellranger": {
       "Package": "cellranger",
@@ -230,10 +224,10 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "2.0.1",
+      "Version": "2.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "5173d8ab28680cf263636b110f4f3220"
+      "Hash": "3e3f28efcadfda442cd18651fbcbbecf"
     },
     "clipr": {
       "Package": "clipr",
@@ -300,10 +294,10 @@
     },
     "ellipsis": {
       "Package": "ellipsis",
-      "Version": "0.3.0",
+      "Version": "0.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "7067d90c1c780bfe80c0d497e3d7b49d"
+      "Hash": "fd2844b3a43ae2d27e70ece2df1b4e2a"
     },
     "evaluate": {
       "Package": "evaluate",
@@ -335,10 +329,10 @@
     },
     "fs": {
       "Package": "fs",
-      "Version": "1.2.7",
+      "Version": "1.5.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1aa39ca610af9777d7e13ca6cfdb3434"
+      "Hash": "44594a07a42e5f91fac9f93fda6d0109"
     },
     "generics": {
       "Package": "generics",
@@ -425,10 +419,10 @@
     },
     "jsonlite": {
       "Package": "jsonlite",
-      "Version": "1.6",
+      "Version": "1.7.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "bc5739654d032acf531356e32e0d0f54"
+      "Hash": "98138e0994d41508c7a6b84a0600cfcb"
     },
     "knitr": {
       "Package": "knitr",
@@ -544,10 +538,16 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "1.3",
+      "Version": "1.4.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "2a9e2d199c54f6061aba18976e958b1c"
+      "Hash": "a399e4773075fc2375b71f45fca186c4"
+    },
+    "pgSupertest": {
+      "Package": "pgSupertest",
+      "Version": "0.1.1",
+      "Source": "unknown",
+      "Hash": "d5ae7eb437d36ecb748ef5160b95c176"
     },
     "pillar": {
       "Package": "pillar",
@@ -586,10 +586,10 @@
     },
     "processx": {
       "Package": "processx",
-      "Version": "3.3.0",
+      "Version": "3.5.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6e1b10667cecfb3e471cc47002a841af"
+      "Hash": "605f57cffff369dabc0b6c344e9b4492"
     },
     "progress": {
       "Package": "progress",
@@ -607,10 +607,10 @@
     },
     "ps": {
       "Package": "ps",
-      "Version": "1.3.0",
+      "Version": "1.6.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "919a32c940a25bc95fd464df9998a6ba"
+      "Hash": "32620e2001c1dce1af49c49dccbb9420"
     },
     "purrr": {
       "Package": "purrr",
@@ -663,10 +663,10 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.4.9",
+      "Version": "0.4.10",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "9d7aba7bed9a79e2403b4777428a2b12"
+      "Hash": "599df23c40a4fce9c7b4764f28c37857"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
@@ -677,10 +677,10 @@
     },
     "rstudioapi": {
       "Package": "rstudioapi",
-      "Version": "0.10",
+      "Version": "0.13",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "da31c988698b91fdf6a3e2317679d6cb"
+      "Hash": "06c85365a03fdaf699966cc1d3cf53ea"
     },
     "rvest": {
       "Package": "rvest",
@@ -716,6 +716,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "133639dc106955eee4ffb8ec73edac37"
+    },
+    "shinyjs": {
+      "Package": "shinyjs",
+      "Version": "1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7b54dd72674b2a3793cb364c20cba41e"
     },
     "sourcetools": {
       "Package": "sourcetools",
@@ -831,10 +838,10 @@
     },
     "withr": {
       "Package": "withr",
-      "Version": "2.1.2",
+      "Version": "2.4.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "aa57ed55ff2df4bea697a07df528993d"
+      "Hash": "caf4781c674ffa549a4676d2d77b13cc"
     },
     "xfun": {
       "Package": "xfun",
