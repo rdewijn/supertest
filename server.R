@@ -37,8 +37,7 @@ server <- shinyServer(function(input, output, session) {
   })
   
 
-  
-  
+
   
   observe({
     
@@ -138,13 +137,13 @@ server <- shinyServer(function(input, output, session) {
     })
     
     observeEvent(input$done, {
-      
+      ctx = context()
       result = getResultTable() %>%
         ungroup() %>%
         mutate(.ri = 0:(n()-1), .ci = 0) %>%
         select(.ri, .ci ,p)
       
-      if(isRunView(mode())){
+      if(TRUE){
           result %>%
           ctx$addNamespace() %>%
           ctx$save()
