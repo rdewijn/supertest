@@ -36,13 +36,16 @@ server <- shinyServer(function(input, output, session) {
     getValues(session)
   })
   
-  mode = reactive({
-    getMode(session)
-  })
+
   
   
   
   observe({
+    
+    mode = reactive({
+      getMode(session)
+    })
+    
     dfin = dataIn()
     
     if(!isRunView(mode()) ){
