@@ -21,7 +21,7 @@ Output relations|.
 
 ##### Details
 
-The [globaltest](https://www.bioconductor.org/packages/release/bioc/html/globaltest.htmlpackage) is aplied to perform a hypothesis test on a set of peptides.
+The R-package [globaltest](https://www.bioconductor.org/packages/release/bioc/html/globaltest.htmlpackage) is aplied to perform a hypothesis test on a set of peptides.
 
 Goeman JJ, Oosting J (2020). Globaltest: testing association of a group of genes with a clinical variable. R package version 5.48.0.
 
