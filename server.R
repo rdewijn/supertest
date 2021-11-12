@@ -23,7 +23,7 @@ getCtx <- function(session) {
 ############################################
 
 server <- shinyServer(function(input, output, session) {
-
+  
   db = reactive({
     upstreamDb()
   })
@@ -99,7 +99,7 @@ server <- shinyServer(function(input, output, session) {
     
     grpText = reactive({
       grp = getGrp()
-       txt = paste("Upstream kinase test using a grouping factor with levels", levels(grp)[1], "and", levels(grp)[2])
+      txt = paste("Upstream kinase test using a grouping factor with levels", levels(grp)[1], "and", levels(grp)[2])
     })
     
     upText = reactive({
@@ -113,12 +113,12 @@ server <- shinyServer(function(input, output, session) {
     })
     
     output$kup = renderTable({
-        getResultTable() %>% 
+      getResultTable() %>% 
         filter(delta >= 0)
     })
     
     output$kdn = renderTable({
-        getResultTable() %>%
+      getResultTable() %>%
         filter(delta < 0)
     })
     
@@ -135,13 +135,16 @@ server <- shinyServer(function(input, output, session) {
     })
     
     observeEvent(input$done, {
-      ctx <- context()
-      getResultTable() %>%
-        ungroup() %>%
-        mutate(.ri = 0:(n()-1), .ci = 0) %>%
-        select(.ri, .ci ,p) %>%
-        ctx$addNamespace() %>%
-        ctx$save()
+      if(isRunView(mode())){
+        ctx <- context()
+        getResultTable() %>%
+          ungroup() %>%
+          mutate(.ri = 0:(n()-1), .ci = 0) %>%
+          select(.ri, .ci ,p) %>%
+          ctx$addNamespace() %>%
+          ctx$save()
+      }
+      
     })
     
     context <- reactive({

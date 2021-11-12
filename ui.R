@@ -5,7 +5,7 @@ library(shinyjs)
 ui = shinyUI
 ( 
   fluidPage
-  ( 
+  ( shinyjs::useShinyjs(),
     
     ui <- dashboardPage
     (
