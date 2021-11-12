@@ -125,6 +125,7 @@ server <- shinyServer(function(input, output, session) {
     })
     
     observeEvent(input$done, {
+      stop("it")
       mode = getMode(session)
       if (!is.null(mode) && mode == "run"){
         
