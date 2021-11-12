@@ -1,8 +1,8 @@
-# Template Shiny operator for Tercen
+# Supertest
 
 ##### Description
 
-The `Template Shiny operator` is a template repository for the creation of Shiny operators in Tercen.
+The `Supertest` shiny operator is for mapping peptides to upstream kinases and performing a test on differential kinase activity based on peptide sets.
 
 ##### Usage
 
@@ -21,8 +21,14 @@ Output relations|.
 
 ##### Details
 
-Details on the computation.
+The [globaltest](https://www.bioconductor.org/packages/release/bioc/html/globaltest.htmlpackage) is aplied to perform a hypothesis test on a set of peptides.
+
+Goeman JJ, Oosting J (2020). Globaltest: testing association of a group of genes with a clinical variable. R package version 5.48.0.
+
+Goeman JJ, van de Geer SA, van Houwelingen JC (2006). “Testing against a high-dimensional alternative.” Journal of the Royal Statistical Society, Series B, 477-493.
+
+Goeman JJ, van de Geer SA, de Kort F, van Houwelingen JC (2004). “A global test for groups of genes: testing association with a clinical outcome.” Bioinformatics, 93-99.
 
 ##### See Also
 
-[template_R_operator](https://github.com/tercen/template_R_operator)
+
