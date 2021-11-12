@@ -137,6 +137,7 @@ server <- shinyServer(function(input, output, session) {
     })
     
     observeEvent(input$done, {
+
       ctx = context()
       result = getResultTable() %>%
         ungroup() %>%
@@ -144,7 +145,8 @@ server <- shinyServer(function(input, output, session) {
         select(.ri, .ci ,p)
       
       if(TRUE){
-          result %>%
+          ctx %>%
+          select(.ri, .ci, .y) %>%
           ctx$addNamespace() %>%
           ctx$save()
       }
