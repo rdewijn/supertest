@@ -137,12 +137,12 @@ server <- shinyServer(function(input, output, session) {
     })
     
     observeEvent(input$done, {
-      browser()
+  
       ctx = context()
       getResultTable() %>%
         ungroup() %>%
-        mutate(.ri = 0:(n()-1), .ci = 0) %>%
-        mutate(.ci = .ci %>% as.integer()) %>%
+        mutate(.ri = 0:(n()-1), .ci = 0.0) %>%
+        mutate(.ri = .ri %>% as.numeric()) %>%
         select(.ri, .ci ,p) %>%
         ctx$addNamespace() %>%
         ctx$save()
