@@ -14,24 +14,21 @@ ui = shinyUI
         sidebarMenu(
           menuItem("home", tabName = "home", icon = icon("home")),
           menuItem("results table", tabName = "results", icon = icon("th")),
-          menuItem("volcano plot", tabName = "vp", icon = icon("image")),
-          menuItem("settings", tabName = "settings", icon = icon("dashboard")),
-          actionLink("done", "done", icon = icon("check-circle"))
+          actionLink("done", "run", icon = icon("check-circle"))
         )
       )
       ,
       dashboardBody(
         tabItems(
-          tabItem(tabName = "home",
-                  fluidRow(
-                    box(title = "Simple UPstream kinase EnRichment TEST")
-                  )
-          ),
+
           
-          tabItem(tabName = "settings",
+          tabItem(tabName = "home",
                   # Boxes need to be put in a row (or column)
                   
                   fluidRow(
+                    box(title = "Supertest",
+                        textOutput("grpTxt")),
+                    
                     box(title = "General Settings",
                         sliderInput("seqhom", "Minimal Sequence Homolgy:",0,1, 0.9,),
                         sliderInput("p0", "Minimal confidence:", 0,1,0.25),
@@ -57,18 +54,12 @@ ui = shinyUI
           tabItem(tabName = "results",
                   fluidRow(
                     box(title = "Activity up",
+                        textOutput("uptext"),
                         tableOutput("kup")),
                     box(title = "Activity down",
+                        textOutput("downtext"),
                         tableOutput("kdn"))
                     
-                  )
-          ),
-          tabItem(tabName = "vp",
-                  fluidRow(
-                    box(width = 8,
-                        height = 12,
-                        plotOutput("vplot")
-                    )
                   )
           )
           
@@ -78,6 +69,5 @@ ui = shinyUI
       )
     ),
     shinyjs::useShinyjs()
-    
   )
 )

@@ -607,15 +607,15 @@
     },
     "pgSupertest": {
       "Package": "pgSupertest",
-      "Version": "0.1.1",
+      "Version": "0.1.2",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "pgsupertest",
       "RemoteUsername": "pamgene",
       "RemoteRef": "HEAD",
-      "RemoteSha": "24e248f85f088b376aae90a9f22848f4b16e87e9",
-      "Hash": "0aae93b30d402dc5e16ee405bbaa45fb"
+      "RemoteSha": "09d75f9b567bfcaba11a1515ed4b8c709dc11cfc",
+      "Hash": "8c8c5d205585f39a5bcd9ccb94d3c89d"
     },
     "pillar": {
       "Package": "pillar",

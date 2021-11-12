@@ -23,7 +23,7 @@ getCtx <- function(session) {
 ############################################
 
 server <- shinyServer(function(input, output, session) {
-  
+
   db = reactive({
     upstreamDb()
   })
@@ -44,6 +44,10 @@ server <- shinyServer(function(input, output, session) {
   
   observe({
     dfin = dataIn()
+    
+    if(!isRunView(mode()) ){
+      shinyjs::disable("done")
+    }
     
     selectMappings = reactive({
       tabs1 = s1() %>%
@@ -88,6 +92,26 @@ server <- shinyServer(function(input, output, session) {
       return(result)
     })
     
+    getGrp = reactive({
+      grp = dfin$grp %>%
+        as.factor()
+    })
+    
+    grpText = reactive({
+      grp = getGrp()
+       txt = paste("Upstream kinase test using a grouping factor with levels", levels(grp)[1], "and", levels(grp)[2])
+    })
+    
+    upText = reactive({
+      grp = getGrp()
+      txt = paste("Higher activity in the", levels(grp)[2],"group")
+    })
+    
+    downText = reactive({
+      grp = getGrp()
+      txt = paste("Lower activity in the", levels(grp)[2],"group")
+    })
+    
     output$kup = renderTable({
         getResultTable() %>% 
         filter(delta >= 0)
@@ -98,24 +122,28 @@ server <- shinyServer(function(input, output, session) {
         filter(delta < 0)
     })
     
-    output$vplot = renderPlot({
-      result = getResultTable()  
-      p = ggplot(result, aes(x = delta, y = -log10(p), label = Kinase_Name, size = N, colour =Family ))
-        p = p + geom_text() + theme_bw()
-        p = p + xlab("delta") + ylab("-log10(p)") + guides(color  = FALSE)
-        #p = p + xlim( max(abs(result$delta)) *c(-1.1, 1,1) ) + ylim( c(0, max(-log10(result$fdr))) )
-        print(p)
+    output$grpTxt = renderText({
+      grpText()
+    })
+    
+    output$uptext = renderText({
+      upText()
+    })
+    
+    output$downtext = renderText({
+      downText()
     })
     
     observeEvent(input$done, {
       ctx <- context()
-      result = getResultTable() %>%
+      getResultTable() %>%
         ungroup() %>%
         mutate(.ri = 0:(n()-1), .ci = 0) %>%
         select(.ri, .ci ,p) %>%
         ctx$addNamespace() %>%
         ctx$save()
     })
+    
     context <- reactive({
       getCtx(session)
     })
@@ -131,7 +159,7 @@ getValues <- function(session){
   if(length(ctx$colors) == 1){
     df = df %>% bind_cols(data.frame(grp = ctx$select(ctx$colors)[[1]]))
   } else {
-    stop("Need axctly one color for the grouping")
+    stop("Need exactly one color for the grouping")
   }
   if (!("ID" %in% ctx$rnames[[1]]) )stop("Factor ID for identifying spots is required")
   id = data.frame(.ri =unique(df$.ri), ID=ctx%>%rselect("ID"))
@@ -148,5 +176,7 @@ getMode = function(session){
   return(query[["mode"]])
 }
 
-
+isRunView <- function(mode) {
+  !is.null(mode) && mode == "run"
+}
 
