@@ -36,21 +36,9 @@ server <- shinyServer(function(input, output, session) {
     getValues(session)
   })
   
-
-
-  
   observe({
-    
-    mode = reactive({
-      getMode(session)
-    })
-    
     dfin = dataIn()
-    
-    if(!isRunView(mode()) ){
-      shinyjs::disable("done")
-    }
-    
+
     selectMappings = reactive({
       tabs1 = s1() %>%
         filter(GroupName == "TK")
@@ -101,7 +89,7 @@ server <- shinyServer(function(input, output, session) {
     
     grpText = reactive({
       grp = getGrp()
-      txt = paste("Upstream kinase test using a grouping factor with levels", levels(grp)[1], "and", levels(grp)[2], mode())
+      txt = paste("Upstream kinase test using a grouping factor with levels", levels(grp)[1], "and", levels(grp)[2])
     })
     
     upText = reactive({
@@ -137,15 +125,18 @@ server <- shinyServer(function(input, output, session) {
     })
     
     observeEvent(input$done, {
-  
-      ctx = context()
-      getResultTable() %>%
-        ungroup() %>%
-        mutate(.ri = 0:(n()-1), .ci = 0.0) %>%
-        mutate(.ri = .ri %>% as.numeric()) %>%
-        select(.ri, .ci ,p) %>%
-        ctx$addNamespace() %>%
-        ctx$save()
+      mode = getMode(session)
+      if (!is.null(mode) && mode == "run"){
+        
+        ctx = context()
+        getResultTable() %>%
+          ungroup() %>%
+          mutate(.ri = 0:(n()-1), .ci = 0.0) %>%
+          mutate(.ri = .ri %>% as.numeric()) %>%
+          select(.ri, .ci ,p) %>%
+          ctx$addNamespace() %>%
+          ctx$save()
+      }
     })
     
     context <- reactive({
@@ -180,7 +171,4 @@ getMode = function(session){
   return(query[["mode"]])
 }
 
-isRunView <- function(mode) {
-  !is.null(mode) && mode == "run"
-}
 
