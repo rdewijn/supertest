@@ -144,12 +144,11 @@ server <- shinyServer(function(input, output, session) {
         mutate(.ri = 0:(n()-1), .ci = 0) %>%
         select(.ri, .ci ,p)
       
-      if(TRUE){
-          ctx %>%
-          select(.ri, .ci, .y) %>%
+    
+          result %>%
           ctx$addNamespace() %>%
           ctx$save()
-      }
+
       
     })
     
