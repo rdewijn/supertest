@@ -99,7 +99,7 @@ server <- shinyServer(function(input, output, session) {
     
     grpText = reactive({
       grp = getGrp()
-      txt = paste("Upstream kinase test using a grouping factor with levels", levels(grp)[1], "and", levels(grp)[2])
+      txt = paste("Upstream kinase test using a grouping factor with levels", levels(grp)[1], "and", levels(grp)[2], mode())
     })
     
     upText = reactive({
@@ -135,12 +135,14 @@ server <- shinyServer(function(input, output, session) {
     })
     
     observeEvent(input$done, {
+      
+      result = getResultTable() %>%
+        ungroup() %>%
+        mutate(.ri = 0:(n()-1), .ci = 0) %>%
+        select(.ri, .ci ,p)
+      
       if(isRunView(mode())){
-        ctx <- context()
-        getResultTable() %>%
-          ungroup() %>%
-          mutate(.ri = 0:(n()-1), .ci = 0) %>%
-          select(.ri, .ci ,p) %>%
+          result %>%
           ctx$addNamespace() %>%
           ctx$save()
       }
